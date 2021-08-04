@@ -1,4 +1,5 @@
 import './App.scss';
+import AddPopup from './components/AddPopup/AddPopup';
 import List from './components/List/List';
 
 function App() {
@@ -32,10 +33,12 @@ function App() {
             },
             {
               color: "pink",
-              name: "Фильмы и сериалы"
+              name: "Фильмы и сериалы",
             }
             ]}
+            isRemovable={true}
         />
+        <AddPopup />
       </div>
       <div className="todo__tasks">
 

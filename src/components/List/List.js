@@ -1,22 +1,32 @@
+import classNames from 'classnames';
 import React from 'react'
+import Badge from '../Badge/Badge';
 
 import "./List.scss";
 
-export default function List({items}) {
+import removeSvg from "../../assets/img/remove.svg";
+
+export default function List({items, isRemovable, onClick}) {
     return (
-        <ul className="list">
-            {items.map(item => {
+        <ul className="list" onClick={onClick} >
+            {items.map((item, index) => {
             return  (
-                <li className={item.active}>
+                <li className={classNames(item.className, {"active" : item.active})} key={index} >
                     <i>
                         {item.icon ? item.icon : (
-                            <i className={item.color ? `badge badge--${item.color}` : ""}>
-                            </i>
+                            <Badge color={item.color} />
                         )}
                     </i>
                     <span>
                         {item.name}
                     </span>
+                    {isRemovable && (
+                        <img
+                            className="list__remove" 
+                            src={removeSvg} 
+                            alt="remove"
+                        />
+                    )}
                 </li>
             )
             })}
