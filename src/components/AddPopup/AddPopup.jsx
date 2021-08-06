@@ -1,15 +1,43 @@
-import React from 'react'
-import List from '../List/List'
+import React, { useEffect } from 'react'
+import List from '../List/List';
+import PropTypes from 'prop-types'; 
 
 import "./AddPopup.scss";
-import db from "../../assets/db.json";
 import Badge from '../Badge/Badge';
-import closeBtn from "../../assets/img/remove.svg";
+import closeBtn from "../../assets/img/close.svg";
+import axios from 'axios';
 
-export default function AddPopup() {
-    const {colors} = db;
+export default function AddPopup({colors, onAddList}) {
     const [popup, showPopup] = React.useState(false);
-    const [selectedColor, selectColor] = React.useState(1);
+    const [selectedColor, selectColor] = React.useState(3);
+    const [inputValue, setInputValue] = React.useState("");
+    const [isLoading, setLoading] = React.useState(false);
+
+    useEffect(() => {
+        if(Array.isArray(colors)){
+            selectColor(colors[0].id)
+        }
+    }, [colors])
+
+    const onClose = () => {
+        showPopup(false);
+        setInputValue("");
+        selectColor(colors[0].id)
+    }
+    const onAdd = () => {
+        setLoading(true);
+        axios.post("http://localhost:3001/lists", {
+            name: inputValue,
+            colorId: selectedColor
+        }).then(({data}) => {
+            const colorName = colors.filter(c => c.id === selectedColor)[0].name; // {id: num, name: {}, color: name}
+            const listObj = {...data, color: {name: colorName}};
+            onAddList(listObj);
+        }).finally(() => {
+            setLoading(false);
+            onClose()
+        })
+    }
 
     return (
         <div>
@@ -30,12 +58,24 @@ export default function AddPopup() {
             />
             {popup && 
             <div className="add__popup">
-                <button onClick={() => showPopup(false)}className="add__popup-close"><img src={closeBtn} alt="close" /></button>
-                <input className="add__popup-field" />
+                <img 
+                    onClick={() => showPopup(false)} 
+                    src={closeBtn} 
+                    alt="close" 
+                    className="add__popup-close"
+                />
+                <input  
+                    placeholder="Название списка"
+                    value={inputValue} 
+                    type="text" 
+                    className="add__popup-field" 
+                    onChange={e => setInputValue(e.target.value)}
+                />
                 <ul className="add__popup-colors">
                     {colors.map((color, index) => (
                         <li key={color.hex} >
                             <Badge 
+                                key={color+index}
                                 color={color.name} 
                                 className={selectedColor === color.id ? "active" : null}
                                 onClick={() => selectColor(color.id)}    
@@ -43,11 +83,22 @@ export default function AddPopup() {
                         </li>
                     ))}
                 </ul>
-                <button className="add__popup-btn">
-                    Добавить
+                <button onClick={onAdd} className="add__popup-btn">
+                    {isLoading ? "Добавление..." : "Добавить"} 
                 </button>
             </div>
             }
         </div>
     )
+};
+
+
+// prop-types 
+AddPopup.propTypes = {
+    colors: PropTypes.array,
+    onAddList: PropTypes.func
+}
+
+AddPopup.defaultProps = {
+    colors: [],
 }

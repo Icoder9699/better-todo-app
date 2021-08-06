@@ -7,14 +7,18 @@
   height: 530px;  
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgb(116, 116, 116);
-  overflow: hidden;
+  display: flex;
   &__sidebar{
     font-size: 14px;
     background-color: #F4F6F8;
     width: 200px;
-    height: 100%;
+    height: 530px;
     padding: 60px 20px;
     border-right: 1px solid #F4F6F8;
+  }
+  &__tasks{
+    flex: 1;
+    padding: 60px;
   }
 }
 

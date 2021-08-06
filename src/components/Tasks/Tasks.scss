@@ -1,0 +1,79 @@
+.tasks {
+    &__title{
+        display: flex;
+        align-items: center;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #F2F2F2;
+        margin-bottom: 30px;
+        &:hover{
+            img {
+                opacity: .2;
+            }
+        }
+        img {
+            cursor: pointer;
+            opacity: 0;
+            &:hover{
+                opacity: 1;
+            }
+        }
+        h2{
+            font-family: Montserrat;
+            font-weight: bold;
+            font-size: 32px;
+            color: #64C4ED;
+            margin-right: 15px;
+        }
+    }
+
+    &__item{
+        margin-bottom: 21px;
+        display: flex;
+        align-items: center;
+        .checked {
+            input{
+                display: none;
+            }
+            label{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                width: 20px;
+                height: 20px;
+                border: 2px solid #bdbdbd;
+                border-radius: 30px;
+                svg{
+                    opacity: 0;
+                }
+            }
+            input:hover + label {
+                background: #bdbdbd;
+                border-color:#bdbdbd;
+                svg{
+                    opacity: 1;
+                    path{
+                        stroke: #fff;
+                    }
+                }
+            }
+            input:checked + label{
+                background: #4DD599;
+                border-color:#4DD599;
+                svg{
+                    opacity: 1;
+                }
+            }
+        }
+        input{
+            outline: none;
+            border: none;
+            margin-left: 15px;
+            font-family: Lato;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            color: #000000;
+        }
+    }
+}

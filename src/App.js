@@ -1,8 +1,53 @@
 import './App.scss';
+import axios from 'axios';
 import AddPopup from './components/AddPopup/AddPopup';
 import List from './components/List/List';
+import React, { useState } from 'react';
+import Tasks from './components/Tasks/Tasks';
+
+// * до подключения json-server
+// db.lists.map(list => {
+  //   const colorArr = db.colors.filter(c => c.id === list.colorId);
+  //   list.color = colorArr[0].name;
+  //   return list
+  // })
 
 function App() {
+  const [lists, setLists] = useState(null);
+  const [colors, setColors] = useState(null);
+
+  React.useEffect(() => {
+    axios.get("http://localhost:3001/lists?_expand=color&_embed=tasks").then(({data}) => {
+      setLists(data)
+    })
+    axios.get("http://localhost:3001/colors").then(({data}) => {
+      setColors(data)
+    })
+  }, [])
+
+  const addListHandler = obj => {
+      const newLists = [
+        ...lists, // {}, {}, {}
+        obj       // {}
+      ]
+      setLists(newLists);
+  }
+
+  const removeListHandler = id => {
+    // * classic method 
+    // const newLists = [];
+    // for(let i=0; i<lists.length; i++){
+    //   if(lists[i].id === id){
+    //     continue
+    //   }else {
+    //     newLists.push(lists[i]);
+    //   }
+    // }
+    const newLists = lists.filter(list => list.id !== id);
+    setLists(newLists)
+
+  }
+
   return (
     <div className="todo">
       <div className="todo__sidebar">
@@ -20,28 +65,18 @@ function App() {
          ]
         }
         /> 
-        <List 
-          items={[
-            {
-              color: "green",
-              name: "Покупки"
-            },
-            {
-              color: "blue",
-              name: "Фронтенд",
-              active: "active"
-            },
-            {
-              color: "pink",
-              name: "Фильмы и сериалы",
-            }
-            ]}
-            isRemovable={true}
+        <List   
+          items={lists}
+          isRemovable={true}
+          onRemove={removeListHandler}
         />
-        <AddPopup />
+        <AddPopup 
+          colors={colors}
+          onAddList={addListHandler}
+        />
       </div>
       <div className="todo__tasks">
-
+        {lists && <Tasks list={lists[1]} />}
       </div>
     </div>
   );
