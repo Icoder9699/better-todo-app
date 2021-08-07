@@ -68,7 +68,7 @@ export default function AddPopup({colors, onAddList}) {
                     placeholder="Название списка"
                     value={inputValue} 
                     type="text" 
-                    className="add__popup-field" 
+                    className="field" 
                     onChange={e => setInputValue(e.target.value)}
                 />
                 <ul className="add__popup-colors">
@@ -83,7 +83,7 @@ export default function AddPopup({colors, onAddList}) {
                         </li>
                     ))}
                 </ul>
-                <button onClick={onAdd} className="add__popup-btn">
+                <button onClick={onAdd} className="button">
                     {isLoading ? "Добавление..." : "Добавить"} 
                 </button>
             </div>

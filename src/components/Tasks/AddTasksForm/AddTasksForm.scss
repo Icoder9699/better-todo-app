@@ -1,0 +1,46 @@
+.tasks__add{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    &-task{
+        opacity: .2;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:hover{
+            opacity: 1;
+        }
+        span{
+            font-family: Lato;
+            font-weight: 500;
+            font-size: 16px;
+            margin-left: 10px;
+        }
+    }
+    &-block{
+        .field{
+            width: 415px;
+        }
+        .button{
+            &:disabled{
+                cursor: not-allowed;
+                background-color: rgb(214, 214, 214);
+            }
+            width: 145px;
+            &--grey{
+                width: 90px;
+                background: #F4F6F8;
+                border-radius: 4px;
+                color: rgb(119, 119, 119);
+                margin-left: 15px;
+                &:hover{
+                    background-color: darken($color: #F4F6F8, $amount: 3%);
+                }
+                &:active{
+                    background-color: darken($color: #F4F6F8, $amount: 6%);
+                }
+            }
+        }
+    }
+}

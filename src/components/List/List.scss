@@ -18,15 +18,14 @@
         }
     }
     li{
-        &:hover{
-            background-color: rgba(255, 255, 255, 0.6);
-        }
-        position: relative;
         display: flex;
         align-items: center;
         cursor: pointer;
         padding: 10px 12px;
         transition: background-color 0.15s ease-in-out;
+        &:hover{
+            background-color: rgba(255, 255, 255, 0.6);
+        }
         i {
             svg {
                 margin-right: 8px;
@@ -50,7 +49,7 @@
         &:hover{
             .list__remove{
                 opacity: .2;
-                left: 140px;
+                left: 165px;
             }
         }
         .list__remove{
