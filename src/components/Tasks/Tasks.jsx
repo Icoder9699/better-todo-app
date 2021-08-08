@@ -4,8 +4,9 @@ import axios from 'axios';
 import "./Tasks.scss";
 import editSvg from "../../assets/img/edit.svg";
 import AddTasksForm from './AddTasksForm/AddTasksForm';
+import Task from './Task/Task';
 
-export default function Tasks({list, onEditTitle, addTask}) {
+export default function Tasks({list, onEditTitle, addTask, withoutEmpty, removeTask, editTask, checkTask}) {
 
     const editTitle = (id, title) => {
         const newTitle = window.prompt("Название списка", title);
@@ -19,43 +20,35 @@ export default function Tasks({list, onEditTitle, addTask}) {
         }
     }
 
+    const onRemove = (id, listId) => {
+        axios.delete("http://localhost:3001/tasks/" + id)
+            .then(({data}) => {
+                removeTask(id, listId)
+            })
+        .catch(() => alert("Не удалось удалить задачу..."))
+    }
+
     return (
         <div className="tasks">
             <div className="tasks__title">
-                <h2>{list.name}</h2>
+                <h2 style={{color: `${list.color.hex}`}}>{list.name}</h2>
                 <img 
                     onClick={() => editTitle(list.id, list.name)}
                     src={editSvg} 
                     alt="edit-icon"
                 />
             </div>
-            { list.tasks.length ? list.tasks.map(item => (
-                <div key={item.id} className="tasks__item">
-                    <div className="checked">
-                        <input id={`task_${item.id}`} type="checkbox"/>
-                        <label htmlFor={`task_${item.id}`}>
-                            <svg
-                                width="11"
-                                height="8"
-                                viewBox="0 0 11 8"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    d="M9.29999 1.20001L3.79999 6.70001L1.29999 4.20001"
-                                    stroke="#fff"
-                                    strokeWidth="1.5"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                />
-                            </svg>
-                        </label>
-                    </div>
-                    <input value={item.text} readOnly />
-                </div>
-            ))
-            : <h3>Задачи отсутствуют</h3>
-            }
+            {!withoutEmpty && list.tasks && !list.tasks.length && <h3>Задачи отсутствуют</h3>}
+            { list.tasks && list.tasks.map((task, index) => (
+                <Task 
+                    {...task} 
+                    key={task.id + index} 
+                    onRemove={onRemove} 
+                    list={list}
+                    editTask={editTask}
+                    checkTask={checkTask}
+                />
+            ))}
             <AddTasksForm addTask={addTask} list={list} />    
         </div>
     )

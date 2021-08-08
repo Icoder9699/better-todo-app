@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react'
 import List from '../List/List';
 import PropTypes from 'prop-types'; 
-
+import axios from 'axios';
 import "./AddPopup.scss";
+
 import Badge from '../Badge/Badge';
 import closeBtn from "../../assets/img/close.svg";
-import axios from 'axios';
 
 export default function AddPopup({colors, onAddList}) {
-    const [popup, showPopup] = React.useState(false);
+    const [popup, showPopup]           = React.useState(false);
     const [selectedColor, selectColor] = React.useState(3);
-    const [inputValue, setInputValue] = React.useState("");
-    const [isLoading, setLoading] = React.useState(false);
+    const [inputValue, setInputValue]  = React.useState("");
+    const [isLoading, setLoading]      = React.useState(false);
 
     useEffect(() => {
         if(Array.isArray(colors)){

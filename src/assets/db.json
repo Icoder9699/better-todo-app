@@ -35,39 +35,21 @@
       "completed": false
     },
     {
-      "id": 3,
-      "listId": 2,
-      "text": "ReactJS Hooks (useState, useReducer, useEffect и т.д.)",
-      "completed": true
-    },
-    {
-      "id": 4,
-      "listId": 2,
-      "text": "Redux (redux-observable, redux-saga)",
-      "completed": false
-    },
-    {
       "id": 4,
       "listId": 3,
-      "text": "Книга Гарри Поттер",
+      "text": "Книга Гарри Поттер 5",
       "completed": false
-    },
-    {
-      "listId": 3,
-      "text": "Такси 4",
-      "completed": false,
-      "id": 5
     },
     {
       "listId": 4,
       "text": "Думай и богатей",
-      "completed": false,
+      "completed": true,
       "id": 6
     },
     {
       "listId": 4,
       "text": "Алхимик",
-      "completed": false,
+      "completed": true,
       "id": 7
     },
     {
@@ -75,6 +57,12 @@
       "text": "Богатый папа бедный папа",
       "completed": false,
       "id": 8
+    },
+    {
+      "listId": 1,
+      "text": "Гелекси с10",
+      "completed": false,
+      "id": 9
     }
   ],
   "colors": [
