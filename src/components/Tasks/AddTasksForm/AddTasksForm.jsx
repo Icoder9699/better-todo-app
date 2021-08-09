@@ -25,7 +25,7 @@ export default function AddTasksForm({addTask, list}) {
             "completed": false
         }
 
-        axios.post("http://localhost:3001/tasks", newTask)
+        axios.post("/tasks", newTask)
             .then(({data}) => {
                 addTask(list.id, data); // добавляем дата ** как так в нем создано id
                 toggleFormVisible();

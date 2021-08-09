@@ -30,7 +30,7 @@ export default function AddPopup({colors, onAddList}) {
             setLoading(false);
             return
         }
-        axios.post("http://localhost:3001/lists", {
+        axios.post("/lists", {
             name: inputValue,
             colorId: selectedColor
         }).then(({data}) => {
