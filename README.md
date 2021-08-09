@@ -1,9 +1,12 @@
-Список задач (ToDo)
+Список задач (ToDo) по курсу Разработка списка задача на ReactJS для начинающих
 
 Stack:
 
-ReactJS (useState, useReducer, useEffect)</br>
-React Router</br>
-Axios</br>
-classnames</br>
-PropTypes</br>
+<ul>
+    <li>
+        ReactJS (useState, useReducer, useEffect)
+    </li>
+    <li>React Router</li>
+    <li>Axios</li>
+    <li>classnames</li>
+</ul>
