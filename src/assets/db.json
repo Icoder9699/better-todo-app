@@ -21,7 +21,7 @@
       "id": 4
     },
     {
-      "name": "123",
+      "name": "test",
       "colorId": 1,
       "id": 5
     }
@@ -50,12 +50,6 @@
       "text": "Гелекси с10",
       "completed": false,
       "id": 9
-    },
-    {
-      "listId": 5,
-      "text": "testadasdas",
-      "completed": false,
-      "id": 10
     }
   ],
   "colors": [

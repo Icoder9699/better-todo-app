@@ -21,10 +21,10 @@ function App() {
   let location = useLocation();
 
   React.useEffect(() => {
-    axios.get("http://localhost:3001/lists?_expand=color&_embed=tasks").then(({data}) => {
+    axios.get("/lists?_expand=color&_embed=tasks").then(({data}) => {
       setLists(data)
     })
-    axios.get("http://localhost:3001/colors").then(({data}) => {
+    axios.get("/colors").then(({data}) => {
       setColors(data)
     })
   }, [])
