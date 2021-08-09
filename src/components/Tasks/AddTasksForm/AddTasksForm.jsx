@@ -5,7 +5,7 @@ import addSvg from "../../../assets/img/plus.svg";
 
 import "./AddTasksForm.scss";
 export default function AddTasksForm({addTask, list}) {
-    const [toggleForm, setToggleForm] = useState(false);
+    const [toggleForm, setToggleForm] = useState(true);
     const [inputValue, setInputValue] = useState("");
     const [loading, setLoading] = useState(false);
 
@@ -24,21 +24,22 @@ export default function AddTasksForm({addTask, list}) {
             "text": inputValue,
             "completed": false
         }
-        axios.post("http://localhost:3001/tasks",newTask)
-            .then(() => {
-                addTask(list.id, newTask);
+
+        axios.post("http://localhost:3001/tasks", newTask)
+            .then(({data}) => {
+                addTask(list.id, data); // добавляем дата ** как так в нем создано id
                 toggleFormVisible();
             })
             .catch(() => alert("Неудалось добавить задачу"))
             .finally(() => {
                setLoading(false)
-            })
+        })
     }
 
 
     return (
         <div className="tasks__add-form" >
-            {!toggleForm ? 
+            {toggleForm ?
                 <div onClick={toggleFormVisible} className="tasks__add-task">
                     <img src={addSvg} alt="plus icon"/>
                     <span>Новая задача</span>

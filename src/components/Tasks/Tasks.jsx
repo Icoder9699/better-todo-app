@@ -11,21 +11,22 @@ export default function Tasks({list, onEditTitle, addTask, withoutEmpty, removeT
     const editTitle = (id, title) => {
         const newTitle = window.prompt("Название списка", title);
         if(newTitle){
-            onEditTitle(id, newTitle)
             axios.patch("http://localhost:3001/lists/" + id, {
                 name: newTitle
             }).catch(() => {
                 alert("Не удалось обновить название списка")
             })
+            onEditTitle(id, newTitle)
         }
     }
 
     const onRemove = (id, listId) => {
         axios.delete("http://localhost:3001/tasks/" + id)
-            .then(({data}) => {
-                removeTask(id, listId)
-            })
+        .then(({data}) => {
+
+        })
         .catch(() => alert("Не удалось удалить задачу..."))
+        removeTask(id, listId)
     }
 
     return (
@@ -49,7 +50,7 @@ export default function Tasks({list, onEditTitle, addTask, withoutEmpty, removeT
                     checkTask={checkTask}
                 />
             ))}
-            <AddTasksForm addTask={addTask} list={list} />    
+            <AddTasksForm key={list.id} addTask={addTask} list={list} />    
         </div>
     )
 }

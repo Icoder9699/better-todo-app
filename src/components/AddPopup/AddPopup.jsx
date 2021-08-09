@@ -26,12 +26,16 @@ export default function AddPopup({colors, onAddList}) {
     }
     const onAdd = () => {
         setLoading(true);
+        if(inputValue === ""){
+            setLoading(false);
+            return
+        }
         axios.post("http://localhost:3001/lists", {
             name: inputValue,
             colorId: selectedColor
         }).then(({data}) => {
-            const colorName = colors.filter(c => c.id === selectedColor)[0].name; // {id: num, name: {}, color: name}
-            const listObj = {...data, color: {name: colorName}};
+            const color = colors.filter(c => c.id === selectedColor)[0]; // {id: num, name: {}, color: name}
+            const listObj = {...data, color: {name: color.name, hex: color.hex}, tasks: []};
             onAddList(listObj);
         }).finally(() => {
             setLoading(false);
@@ -59,7 +63,7 @@ export default function AddPopup({colors, onAddList}) {
             {popup && 
             <div className="add__popup">
                 <img 
-                    onClick={() => showPopup(false)} 
+                    onClick={() => onClose()} 
                     src={closeBtn} 
                     alt="close" 
                     className="add__popup-close"
