@@ -96,7 +96,7 @@ function App() {
       }
       return list
     })
-    axios.patch("http://localhost:3001/tasks/" + taskObj.id, {
+    axios.patch("/tasks/" + taskObj.id, {
       text: changedTaskText
     })
     .then(({data}) => {
@@ -117,7 +117,7 @@ function App() {
       }
       return list
     })
-    axios.patch("http://localhost:3001/tasks/" + taskObj.id, {
+    axios.patch("/tasks/" + taskObj.id, {
       completed: !taskObj.completed
     })
     .then(() => {
